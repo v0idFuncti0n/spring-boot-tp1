@@ -25,7 +25,7 @@ public class EquipeController {
         this.joueurService = joueurService;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public List<Equipe> getEquipes() {
         return new ArrayList<>(equipeService.findAll());
     }
@@ -64,7 +64,7 @@ public class EquipeController {
         return equipeService.update(id, equipe);
     }
 
-    @GetMapping
+    @GetMapping(params = {"pays"})
     public List<Equipe> findEquipeByPays(@RequestParam String pays) {
         return equipeService.findByPays(pays);
     }

@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -144,45 +143,6 @@ public class SpringBootTp1Application implements CommandLineRunner {
         joueurGrizman.setEquipe(equipeATL);
 
         joueurService.save(joueurGrizman);
-
-        // requests
-        // -4
-
-        List<Equipe> equipesMaroc = equipeService.findByPays("Maroc");
-        System.out.println(equipesMaroc);
-
-        // -5
-        List<MatchFoot> matches = matchFootService.findByDateMatch(LocalDate.parse("2021-02-28"));
-        System.out.println(matches);
-
-        // -6
-        Stade stade1 = matchFootService.findById(3L).getStade();
-        System.out.println(stade1.getNomStade());
-
-        // -7
-        Equipe equipe = equipeService.findByNom("PSG");
-        List<Joueur> joueurs = equipe.getJoueurs();
-        System.out.println(joueurs);
-
-        //-8
-        MatchFoot matchFoot1 = matchFootService.findById(3L);
-        List<Equipe> equipes = matchFoot1.getEquipes();
-        System.out.println(equipes);
-
-        //-9
-        Equipe equipe1 = equipeService.findByNom("PSG");
-        List<Joueur> joueurs1 = joueurService.findByPosteAndEquipe("attaquant", equipe1);
-        System.out.println(joueurs1);
-
-        //-10
-//        List<MatchFoot> matchFoots = matchFootService.findByDateMatchBefore(LocalDate.now());
-//        matchFoots.forEach((matchFound) -> {
-//            matchFootService.deleteById(matchFound.getId());
-//        });
-        System.out.println(matchFootService.findAll());
-
-
-
     }
 
 }

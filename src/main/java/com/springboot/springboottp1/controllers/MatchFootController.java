@@ -34,7 +34,7 @@ public class MatchFootController {
         this.stadeService = stadeService;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public List<MatchFoot> getMatches() {
         return matchFootService.findAll();
     }
@@ -98,7 +98,7 @@ public class MatchFootController {
         matchFootService.deleteById(id);
     }
 
-    @GetMapping
+    @GetMapping(params = {"date"})
     public List<MatchFoot> findMatchByDate(@RequestParam String date) {
         return matchFootService.findByDateMatch(LocalDate.parse(date));
     }
