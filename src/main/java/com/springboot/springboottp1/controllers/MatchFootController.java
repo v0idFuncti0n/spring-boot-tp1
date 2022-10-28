@@ -2,11 +2,13 @@ package com.springboot.springboottp1.controllers;
 
 import com.springboot.springboottp1.entities.Equipe;
 import com.springboot.springboottp1.entities.MatchFoot;
+import com.springboot.springboottp1.entities.Stade;
 import com.springboot.springboottp1.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class MatchFootController {
         this.stadeService = stadeService;
     }
 
-    @GetMapping
+    @GetMapping(path = "/all")
     public List<MatchFoot> getMatches() {
         return matchFootService.findAll();
     }
@@ -94,6 +96,28 @@ public class MatchFootController {
     @DeleteMapping(path = "/{id}")
     public void matchFootDelete(@PathVariable Long id) {
         matchFootService.deleteById(id);
+    }
+
+    @GetMapping
+    public List<MatchFoot> findMatchByDate(@RequestParam String date) {
+        return matchFootService.findByDateMatch(LocalDate.parse(date));
+    }
+
+    @GetMapping(path = "/{id}/stade")
+    public Stade findStadeByMatchId(@PathVariable Long id) {
+        return matchFootService.findById(id).getStade();
+    }
+
+    @GetMapping(path = "/{id}/equipe")
+    public List<Equipe> findEquipeByMatchId(@PathVariable Long id) {
+        return matchFootService.findById(id).getEquipes();
+    }
+
+    @DeleteMapping
+    public void deleteAllPreviousMatches() {
+        matchFootService.findByDateMatchBefore(LocalDate.now()).forEach(matchFound -> {
+            matchFootService.deleteById(matchFound.getId());
+        });
     }
 
 }

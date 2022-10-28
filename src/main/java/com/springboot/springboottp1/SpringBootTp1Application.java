@@ -138,6 +138,13 @@ public class SpringBootTp1Application implements CommandLineRunner {
 
         joueurService.save(joueurHakimi);
 
+        Joueur joueurGrizman = new Joueur();
+        joueurGrizman.setNom("Grizman");
+        joueurGrizman.setPoste("attaquant");
+        joueurGrizman.setEquipe(equipeATL);
+
+        joueurService.save(joueurGrizman);
+
         // requests
         // -4
 
@@ -168,10 +175,10 @@ public class SpringBootTp1Application implements CommandLineRunner {
         System.out.println(joueurs1);
 
         //-10
-        List<MatchFoot> matchFoots = matchFootService.findByDateMatchBefore(LocalDate.now());
-        matchFoots.forEach((matchFound) -> {
-            matchFootService.deleteById(matchFound.getId());
-        });
+//        List<MatchFoot> matchFoots = matchFootService.findByDateMatchBefore(LocalDate.now());
+//        matchFoots.forEach((matchFound) -> {
+//            matchFootService.deleteById(matchFound.getId());
+//        });
         System.out.println(matchFootService.findAll());
 
 

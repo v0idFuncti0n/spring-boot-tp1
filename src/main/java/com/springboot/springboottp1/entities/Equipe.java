@@ -1,5 +1,6 @@
 package com.springboot.springboottp1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,9 +21,11 @@ public class Equipe {
 
     private String pays;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "equipe", fetch = FetchType.EAGER)
     private List<Joueur> joueurs;
 
+    @JsonIgnore
     @ManyToMany(mappedBy= "equipes", cascade = CascadeType.ALL)
     private List<MatchFoot> matches;
 

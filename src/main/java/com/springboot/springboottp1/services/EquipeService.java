@@ -4,7 +4,6 @@ import com.springboot.springboottp1.entities.Equipe;
 import com.springboot.springboottp1.repositories.EquipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +20,15 @@ public class EquipeService {
         return new ArrayList<>(equipeRepository.findAll());
     }
 
-    public Equipe findById(@PathVariable Long id) {
+    public Equipe findById(Long id) {
         return equipeRepository.findById(id).orElseThrow((() -> new RuntimeException("joueur not found")));
     }
 
-    public Equipe save(@RequestBody Equipe equipe) {
+    public Equipe save(Equipe equipe) {
         return equipeRepository.save(equipe);
     }
 
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(Long id) {
         equipeRepository.deleteById(id);
     }
 
@@ -45,4 +44,5 @@ public class EquipeService {
     public Equipe findByNom(String nom) {
         return equipeRepository.findByNom(nom);
     }
+
 }

@@ -5,6 +5,7 @@ import com.springboot.springboottp1.entities.Joueur;
 import com.springboot.springboottp1.services.EquipeService;
 import com.springboot.springboottp1.services.JoueurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class EquipeController {
         this.joueurService = joueurService;
     }
 
-    @GetMapping
+    @GetMapping(path = "/all")
     public List<Equipe> getEquipes() {
         return new ArrayList<>(equipeService.findAll());
     }
@@ -61,6 +62,26 @@ public class EquipeController {
     @PutMapping(path = "/{id}")
     public Equipe equipeUpdate(@PathVariable Long id, @RequestBody Equipe equipe) {
         return equipeService.update(id, equipe);
+    }
+
+    @GetMapping
+    public List<Equipe> findEquipeByPays(@RequestParam String pays) {
+        return equipeService.findByPays(pays);
+    }
+
+    @GetMapping(
+            params = "name"
+    )
+    public List<Joueur> findByNom(@RequestParam String name) {
+        return equipeService.findByNom(name).getJoueurs();
+    }
+
+    @GetMapping(
+            params = {"name", "poste"}
+    )
+    public List<Joueur> findByPosteAndEquipe(@RequestParam(name = "name") String name, @RequestParam String poste) {
+        Equipe equipe = equipeService.findByNom(name);
+        return joueurService.findByPosteAndEquipe(poste, equipe);
     }
 
 }
